@@ -9,7 +9,7 @@ class Login:
     def authenticate_user(self, username, password):
         #TODO encrypt username for searching in database
         
-        #check if username exists   
+        #check if username exists in database  
         try:
             connection = sqlite3.connect("FitnessPlus")
             c = connection.cursor()
@@ -22,17 +22,27 @@ class Login:
             if connection:
                 connection.close()
         
-        #if exists
+        #if user exists, check if the password matches
         if (user_data):
             # Hash the entered password with the stored salt
-            get_password = user_data[0].encode('utf-8')
-            salt = user_data[1].encode('utf-8')
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), user_data[1])
+
+            if (user_data[0] == hashed_password):
+                return True
+            else:
+                print("\033[91m\nUsername/Password is incorrect.\033[0m")
+                return False
+        else:
+            print("\033[91m\nUsername/Password is incorrect.\033[0m")
+            return False
 
 
     
 
 # #Test
-# x = Login()
-# hashedpassw = bcrypt.hashpw("winner1998".encode('utf-8'), "salty")
-# x.authenticate_user(hashedpassw, "salty")
+#x = Login()
+#salt = "$2b$12$2r52R8W8E1r86A5IB6KxA.n2RSpqnc9Afhr/LHrbdb.br0Wk7xwWu".encode('utf-8')
+#hashedpassw = bcrypt.hashpw("winner1998".encode('utf-8'), salt)
+#x.authenticate_user(hashedpassw, salt)
+#x.authenticate_user('john_1998', 'winner1998')
+

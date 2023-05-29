@@ -64,7 +64,7 @@ class Database:
 #Test
 db = Database()
 db.createDatabase()
-salt = "salty".encode('utf-8')
-hashedpassw = bcrypt.hashpw("winner1998".encode('utf-8'), salt)
-db.insertUserData("trainer", "John", "Doe", "25-05-2023", "john_1998", hashedpassw, salt)
+# salt = bcrypt.gensalt()
+# hashedpassw = bcrypt.hashpw("20September#".encode('utf-8'), salt)
+# db.insertUserData("trainer", "Twinkle", "Niddha", "25-05-2023", "twinkleniddh", hashedpassw, salt)
     

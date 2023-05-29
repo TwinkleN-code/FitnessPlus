@@ -2,22 +2,27 @@ import re
 
 
 def validate_username(username):
+    obj = validationType()
+
     #must have length >= 8 and <= 12
     if not (len(username) >= 8 and len(username) <= 12):
-        print("\033[91m\nusername must have minimal 8 and maximal 12 characters\033[0m \n")
-        return False
+        obj.validation = False
+        obj.error_text = "\033[91m\nusername must have minimal 8 and maximal 12 characters\033[0m \n"
+        return obj
     
     #must be started with a letter or underscore
     if not re.match(r'^[a-zA-Z_]', username):
-        print("\033[91m\nusername must start with a letter or an underscore\033[0m \n")
-        return False
+        obj.validation = False
+        obj.error_text = "\033[91m\nusername must start with a letter or an underscore\033[0m \n"
+        return obj
     
     #can contain letters, numbers and _ '.
     if not re.match(r'^[a-zA-Z0-9_\'\.]+$', username):
-        print("\033[91m\nusername contains invalid characters\033[0m \n")
-        return False
+        obj.validation = False
+        obj.error_text = "\033[91m\nusername contains invalid characters\033[0m \n"
+        return obj
 
-    return True
+    return obj
 
 
 def validate_password(password):
@@ -45,3 +50,11 @@ def validate_superAdmin(username, password):
     if (username == "super_admin" and password == "Admin_123!"):
         return True
     return False
+
+
+class validationType:
+    def __init__(self, validate, errortext) -> None:
+        self.error_text = errortext
+        self.validation = validate
+
+

@@ -49,14 +49,33 @@ def LoginPage():
         SuperAdminPage()
         return  
     
-    #input validation for username and password
-    while (validate_username(input_username) == False or validate_password(input_password) == False):
+    #input validation and authentication
+    while (validate_username(input_username).validation == False or validate_password(input_password) == False):
         input_username = input("\033[94mEnter username:\033[0m ")
         input_password = MaskPassword("\033[94mEnter password:\033[0m ")
+    
+    ### start
+    for i in range(3):
+        input_username = input("\033[94mEnter username:\033[0m ")
+        input_password = MaskPassword("\033[94mEnter password:\033[0m ")
+        
+
+    ### end
 
     #authorization and authenthication
     login = Login()
+    auth = login.authenticate_user(input_username,input_password)
+    attempts = 4
 
+    while (attempts > 0 and (auth == False or validate_username(input_username) == False or validate_password(input_password) == False)):
+        attempts -= 1
+        printError(f"\033[91mYou have {attempts} attempts left\033[0m")
+        input_username = input("\033[94m\nEnter username:\033[0m ")
+        input_password = MaskPassword("\033[94mEnter password:\033[0m ")
+        if (input_username != False or input_password != False):
+            auth = login.authenticate_user(input_username,input_password)
+
+            
 
     #go to account
     clear_console()    
@@ -199,7 +218,7 @@ def SuperAdminPage():
         else:
             InvalidInput()        
 
-# LoginPage()
+LoginPage()
 # TrainerPage('Twinkle', 'Niddha', "18-05-2023")
 # MemberOptions()
 # SystemAdminPage('Twinkle', 'Niddha', "18-05-2023")
