@@ -1,4 +1,4 @@
-# Analyse-8-Assignment
+# Software Quality Assignment
 
 In this assignment, a simple system to store and manage the information of members of Fitness Plus (Fit+), a health and fitness club where various services are offered to help its members meet their fitness goals is made. A membership management system is needed at the customer service to register new members.
 The application can add new members, trainers and admins. Various options such as update, delete, modify and search profiles are implemented. Events are logged. Backup of the system can be made and restored. 
